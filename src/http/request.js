@@ -1,4 +1,5 @@
 import axios from './http'
+import qs from 'qs'
 
 function get(url, params, config) {
   return new Promise((resolve, reject) => {
@@ -15,8 +16,19 @@ function get(url, params, config) {
 
 function post(url, params, config) {
   return new Promise((resolve, reject) => {
-    axios.post(url, {
-      params,
+    axios.post(url, qs.stringify(params),{
+      ...config
+    }).then(res => {
+      resolve(res.data)
+    }).catch(err => {
+      reject(err.data)
+    })
+  })
+}
+
+function postJson(url, params, config) {
+  return new Promise((resolve, reject) => {
+    axios.post(url,  params,{
       ...config
     }).then(res => {
       resolve(res.data)
@@ -27,6 +39,7 @@ function post(url, params, config) {
 }
 const requestMethods = {
   post,
-  get
+  get,
+  postJson
 }
 export default requestMethods
