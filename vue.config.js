@@ -1,7 +1,8 @@
 const path = require('path');
-let envContent = require('./prod.env')
-let baseUrl = envContent.baseUrl
-console.log('----------baseUrl',baseUrl)
+let baseUrl =  process.env.VUE_APP_URL
+console.log('------baseUrl--------')
+console.log(baseUrl)
+console.log('------baseUrl--------')
 
 function resolve(dir) {
   return path.join(__dirname, dir)

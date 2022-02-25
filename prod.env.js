@@ -1,34 +1,23 @@
-let baseUrl = ""
-var env = process.env.NODE_ENV === 'development' ? 'development' :
-  process.env.VUE_APP_TITLE === 'testing' ? 'testing' :
-    process.env.VUE_APP_TITLE === 'beta' ? 'beta' : 'production';
+let baseUrl = ''
+var env = process.env.NODE_ENV
+
+console.log(env)
 
 switch (env) {
-
-
   case 'development':
-
-    baseUrl = "http://172.28.20.5:9015"  //这里是本地的请求url
-
-
+    baseUrl = 'http://172.28.20.5:9015' //这里是本地的请求url
     break
-  case 'testing':   // 注意这里的名字要和步骤二中设置的环境名字对应起来
-    baseUrl = ""  //这里是测试环境中的url
-
-    break
-  case 'production':
-    baseUrl = "pro_url"  //生产环境url
-
+  case 'testing': 
+    baseUrl = 'http://172.28.20.5:8080' // 测试环境打包url
     break
   case 'beta':
-    baseUrl = ""  //生产环境url
-
+    baseUrl = 'http://10.28.20.5:9015' //预生产环境打包url
     break
-
+  case 'production':
+    baseUrl = 'http://www.xxx.com' //生产环境url
+    break
 }
+console.log(baseUrl)
 module.exports = {
-  baseUrl
+  baseUrl,
 }
-
-
-
