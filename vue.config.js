@@ -1,55 +1,30 @@
-const path = require('path');
-let baseUrl =  process.env.VUE_APP_URL
+const path = require('path')
+let baseUrl = process.env.VUE_APP_URL
 console.log('------baseUrl--------')
 console.log(baseUrl)
-console.log('------baseUrl--------')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
-
 // 导入compression-webpack-plugin
 // const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
-
-
-  publicPath: "./",
+  publicPath: './',
   // 输出目录
   outputDir: 'dist',
   lintOnSave: false,
   // 是否为生产环境构建生成 source map？
 
-
   productionSourceMap: false,
-  // alias 配置
   chainWebpack: (config) => {
     config.plugins.delete('prefetch')
-    config.resolve.alias
-      .set('@', resolve('src'))
-      .set('vendor', resolve('src/vendor'))
-
-    // 用cdn方式引入
     config.externals({
-      // 'vue': 'Vue',
+      // 用cdn方式引入
+      // vue: 'Vue',
       // 'element-ui': 'ElementUI',
-      // 'echarts': 'echarts',
+      // echarts: 'echarts',
     })
-
-    // 全局注册sass变量   主题切换基础配置
-    // const oneOfsMap = config.module.rule('scss').oneOfs.store
-    // oneOfsMap.forEach(item => {
-    //   item
-    //     .use('sass-resources-loader')
-    //     .loader('sass-resources-loader')
-    //     .options({
-    //       resources: './src/assets/scss/variable.scss'
-    //
-    //       // Or array of paths
-    //       // resources: ['./path/to/vars.scss', './path/to/mixins.scss']
-    //     })
-    //     .end()
-    // })
   },
   configureWebpack: {
     performance: {
@@ -59,10 +34,16 @@ module.exports = {
       //生成文件的最大体积 整数类型（以字节为单位 300k）
       maxAssetSize: 30000000,
       //只给出 js 文件的性能提示
-      assetFilter: function (assetFilename) {
-        return assetFilename.endsWith('.js');
-      }
-    }
+      assetFilter: function(assetFilename) {
+        return assetFilename.endsWith('.js')
+      },
+    },
+    resolve: {
+      // alias 配置
+      alias: {
+        '@': resolve('src'),
+      },
+    },
   },
   // CSS 相关选项
   css: {
@@ -73,16 +54,10 @@ module.exports = {
     // sass-loader 时，使用 `{ sass: { ... } }`。
     loaderOptions: {
       sass: {
-        prependData: `@import "@/assets/css/var.scss";`
+        prependData: `@import "@/styles/index.scss";`,
       },
-      scss: {
-        prependData: `@import "@/assets/css/var.scss";`
-      }
     }, // 为所有的 CSS 及其预处理文件开启 CSS Modules。
-
-
   },
-
 
   // 在多核机器下会默认开启。
   // parallel: require('os').cpus().length > 1,
@@ -96,9 +71,9 @@ module.exports = {
         target: baseUrl,
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
-        }
+          '^/api': '',
+        },
       },
-    }
+    },
   },
 }

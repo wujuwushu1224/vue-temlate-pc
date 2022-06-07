@@ -1,10 +1,10 @@
-import requestMethods from '../http/request'
+import requestMethods from '@/utils/http/request'
 
 export default {
   /**
    * 城市信息列表
    **/
-  getCityInfoList(hasMap = false) {
-    return requestMethods.post(`/common/getCityInfoList?hasMap=${hasMap}`)
+  getCityInfoList(query) {
+    return requestMethods.post(`/common/getCityInfoList`, query)
   },
 }
