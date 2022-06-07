@@ -9,11 +9,11 @@ function get(url, method, query, config) {
   })
 }
 
-function post(url, query, config) {
+function post(url, data, config) {
   return request({
     url,
     method: 'post',
-    params: query,
+    data,
     ...config,
   })
 }

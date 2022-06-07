@@ -12,7 +12,7 @@ import './styles/element-variables.scss'
 
 import * as filter from './filter'
 import api from './api/index'
-import * as global from './utils'
+import * as global from './utils/global'
 import store from './store'
 import './icons' // icon
 
