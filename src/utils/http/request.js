@@ -1,9 +1,9 @@
 import request from './http'
 
-function get(url, method, query, config) {
+function get(url, query, config) {
   return request({
     url,
-    method,
+    method: 'get',
     params: query,
     ...config,
   })

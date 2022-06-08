@@ -5,10 +5,10 @@
       class="drawer-bg"
       @click="handleClickOutside"
     /> -->
-    <div class="header-container">
+    <!-- <div class="header-container">
 
-    </div>
-    
+    </div> -->
+
     <sidebar class="sidebar-container" />
     <div class="main-container">
       <app-main />
