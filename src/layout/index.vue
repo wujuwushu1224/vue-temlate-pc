@@ -5,12 +5,16 @@
       class="drawer-bg"
       @click="handleClickOutside"
     /> -->
+    <div class="header-container">
+
+    </div>
+    
     <sidebar class="sidebar-container" />
     <div class="main-container">
       <app-main />
-      <right-panel v-if="showSettings">
+      <!-- <right-panel v-if="showSettings">
         <settings />
-      </right-panel>
+      </right-panel> -->
     </div>
   </div>
 </template>
@@ -63,6 +67,10 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+  .header-container {
+    height: 50px;
+    background: red;
+  }
 
   &.mobile.openSidebar {
     position: fixed;

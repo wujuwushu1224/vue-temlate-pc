@@ -2,8 +2,7 @@ import Vue from 'vue'
 
 import App from './App.vue'
 import router from './router/index'
-
-import './icons' // icon
+import store from './store'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
@@ -13,8 +12,10 @@ import './styles/element-variables.scss'
 import * as filter from './filter'
 import api from './api/index'
 import * as global from './utils/global'
-import store from './store'
+
 import './icons' // icon
+import './permission' // permission control
+
 
 Vue.use(Element)
 

@@ -4,10 +4,10 @@ export default {
   login(data) {
     return requestMethods.post(`/vue-element-admin/user/login`, data)
   },
-  getInfo(data) {
-    return requestMethods.post(`/vue-element-admin/user/info`, data)
+  getInfo(token) {
+    return requestMethods.get(`/vue-element-admin/user/info`, { token })
   },
-  logout(data) {
-    return requestMethods.post(`/vue-element-admin/user/logout`, data)
+  logout() {
+    return requestMethods.post(`/vue-element-admin/user/logout`)
   },
 }
