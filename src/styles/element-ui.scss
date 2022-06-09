@@ -82,3 +82,13 @@
 .el-range-separator {
   box-sizing: content-box;
 }
+
+.el-icon-arrow-down {
+  font-size: 14px;
+  margin-left: 16px;
+
+  &.active {
+    transition: 0.5s;
+    transform: rotate(-180deg);
+  }
+}

@@ -1,7 +1,7 @@
 <template>
   <div class="popup-box">
-    <BasePopup v-model="show" :arrow-left="120" :pop-width="160">
-      <div slot="popupCont" class="selector-wrapper" @click.stop="">
+    <BasePopup v-model="show" :arrow-left="80" :pop-width="160">
+      <div slot="popupCont" class="selector-wrapper">
         <el-autocomplete
           v-if="showSearch"
           clearable
@@ -34,6 +34,7 @@
       </div>
       <div slot="reference">
         <slot />
+        <i class="el-icon-arrow-down" :class="show ? 'active' : ''"> </i>
       </div>
     </BasePopup>
   </div>
@@ -167,7 +168,7 @@ export default {
     align-items: center;
     justify-content: center;
     margin: 18px auto 0;
-    background: $g-main-tone;
+    background: $light-blue;
     color: #fff;
   }
 }

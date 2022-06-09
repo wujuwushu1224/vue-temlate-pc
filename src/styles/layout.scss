@@ -1,5 +1,39 @@
-.app-content{
+.app-content {
   border: 1px solid rgba(0, 113, 230, 0.24);
   height: 100%;
-  width: 100;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.filter-tool-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  .filter-tool {
+    display: inline-block;
+    white-space: nowrap;
+    position: relative;
+    cursor: pointer;
+    padding: 8px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin-right: 16px;
+    border-radius: 4px;
+
+    .el-icon-arrow-down {
+      font-size: 14px;
+      margin-left: 16px;
+    }
+
+    span:nth-of-type(1) {
+      font-size: 14px;
+      color: #7f8f98;
+    }
+
+    span:nth-of-type(2) {
+      font-size: 14px;
+      color: #282a34;
+    }
+  }
 }
