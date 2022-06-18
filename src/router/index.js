@@ -73,18 +73,6 @@ export const constantRoutes = [
       },
     ],
   },
-  {
-    path: '/mapList',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/map-list/index'),
-        name: 'MapList',
-        meta: { title: '地图列表', icon: 'mapList', affix: true },
-      },
-    ],
-  },
 ]
 
 /**
@@ -94,6 +82,26 @@ export const constantRoutes = [
 export const asyncRoutes = [
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true },
+  {
+    path: '/mapList',
+    component: Layout,
+    meta: {
+      roles: ['admin'],
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/map-list/index'),
+        name: 'MapList',
+        meta: {
+          title: '地图列表',
+          icon: 'mapList',
+          affix: true,
+          roles: ['admin'],
+        },
+      },
+    ],
+  },
 ]
 
 const createRouter = () =>
