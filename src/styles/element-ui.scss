@@ -92,3 +92,9 @@
     transform: rotate(-180deg);
   }
 }
+
+.el-table {
+  .el-table__cell {
+    padding: 0;
+  }
+}

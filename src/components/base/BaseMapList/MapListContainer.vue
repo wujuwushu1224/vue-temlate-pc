@@ -1,7 +1,7 @@
 <template>
   <div class="map-list-container">
-    <slot name="left" />
-    <slot name="right" />
+    <slot :handleUnfold="handleUnfold" name="left" />
+    <slot :handleUnfold="handleUnfold" name="right" />
   </div>
 </template>
 <script>
@@ -9,32 +9,26 @@ export default {
   props: {
     layout: {
       type: Object,
-      default: () => {
-        return {
-          right: '500px',
-        }
-      },
+    },
+    isUnfold: {
+      type: Boolean,
+    },
+    fixedWidth: {
+      type: String,
+      default: '500px',
     },
   },
   data() {
-    return {
-      isUnfold: false,
-      c_layout: {},
-    }
+    return {}
   },
   created() {
-    Object.assign(this.c_layout, this.layout)
   },
   methods: {
-    handleUnfold() {
-      this.isUnfold = !this.isUnfold
-      if (this.isUnfold) {
-        this.c_layout.right = 'calc(100% - 50px)'
-      } else {
-        this.c_layout.right = this.layout.right
-      }
+    handleUnfold(item) {
+      let width = this.isUnfold ? this.fixedWidth : 'calc(100% - 50px)'
+      this.layout[item].width = width
+      this.$emit('update:isUnfold', !this.isUnfold)
     },
   },
 }
 </script>
-<style lang="scss"></style>

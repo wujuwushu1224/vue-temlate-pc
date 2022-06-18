@@ -7,4 +7,8 @@ export default {
   getCityInfoList(query) {
     return requestMethods.post(`/common/getCityInfoList`, query)
   },
+  // 字典管理->获取所有字典
+  selectAllDictionary(params) {
+    return requestMethods.postFromData('/tbDictionary/selectAllDictionary', params)
+  },
 }

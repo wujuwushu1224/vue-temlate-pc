@@ -64,25 +64,21 @@ module.exports = {
   // PWA 插件的选项。
   pwa: {},
   // 配置 webpack-dev-server 行为。
-
-  // devServer: {
-  //   disableHostCheck: true,
-  //   proxy: {
-  //     '/api': {
-  //       target: baseUrl,
-  //       changeOrigin: true,
-  //       pathRewrite: {
-  //         '^/api': '',
-  //       },
-  //     },
-  //   },
-  // },
   devServer: {
     port: 8888,
     open: true,
     overlay: {
       warnings: false,
       errors: true,
+    },
+    proxy: {
+      '/api': {
+        target: baseUrl,
+        changeOrigin: true,
+        // pathRewrite: {
+        //   '^/api': '',
+        // },
+      },
     },
     before: require('./mock/mock-server.js'),
   },
