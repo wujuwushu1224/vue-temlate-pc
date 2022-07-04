@@ -106,7 +106,7 @@ export default {
   },
   created() {
     this.initDate()
-    // this.selectAllDictionary()
+    this.selectAllDictionary()
     if (!this.roles.includes('admin')) {
       this.currentRole = 'editorDashboard'
     }

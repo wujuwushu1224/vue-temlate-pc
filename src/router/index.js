@@ -73,6 +73,22 @@ export const constantRoutes = [
       },
     ],
   },
+  {
+    path: '/mapList',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/map-list/index'),
+        name: 'MapList',
+        meta: {
+          title: '地图列表',
+          icon: 'mapList',
+          affix: true,
+        },
+      },
+    ],
+  },
 ]
 
 /**

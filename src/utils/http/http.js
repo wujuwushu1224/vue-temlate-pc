@@ -21,6 +21,7 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['X-Token'] = getToken()
     }
+    config.headers['Authorization'] = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6IjEiLCJuaWNrbmFtZSI6IueuoeeQhuWRmCIsImV4cCI6MTY1Njk4OTAyOX0.cCBf8zAkZVQncx2P0dXUjy0hwsKlTUStrQ3gQKWiJ66rKGgFWJeBuH7s2ZChk3SxTXJoU-W23_BR1NYLYuab6g'
     return config
   },
   (error) => {

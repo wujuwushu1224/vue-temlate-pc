@@ -14,7 +14,7 @@ import api from './api/index'
 import * as global from './utils/global'
 
 import './icons' // icon
-import './permission' // permission control
+// import './permission' // permission control
 
 
 Vue.use(Element)

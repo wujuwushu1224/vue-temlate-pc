@@ -1,5 +1,7 @@
 <template>
-  <div class="dashboard-container app-container"></div>
+  <div class="dashboard-container app-container">
+    首页
+  </div>
 </template>
 
 <script>
