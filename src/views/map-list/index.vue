@@ -23,17 +23,32 @@
       </div>
       <MapList>
         <template #left>
-          <AMap ref="mapChart" />
+          <AMap
+            :hasToolBar="false"
+            @mapLoadComplete="mapLoadComplete"
+            ref="mapChart"
+          />
+          <DragThumb
+            v-for="(item, index) in dragItemList"
+            :ref="'drag' + index"
+            :key="'drag' + index"
+            :init-data="item.data"
+            :rect-range="rectRange"
+            :init-point="item.initPoint"
+            :boundingElement="$refs.mapChart.$el"
+          >
+            <ModelCard
+              :data="item.data"
+              @close="handleCloseMarker(item.data, 'districtId')"
+            />
+          </DragThumb>
         </template>
         <template #right>
-          <el-table
-            height="100%"
-            :data="tdList"
-          >
-            <template v-for="item in thList">
+          <el-table height="100%" :data="tdList">
+            <template v-for="(item, index) in thList">
               <el-table-column
-                :key="item.id"
-                min-width="120"
+                :key="index"
+                min-width="150"
                 header-align="center"
                 align="center"
                 :prop="item.codeIndex"
@@ -45,7 +60,7 @@
                   <p v-if="item.unit">({{ item.unit }})</p>
                 </template>
                 <template slot-scope="scope">
-                  <span>{{ scope.row[item.codeIndex] || '-' }}</span>
+                  <span v-html="scope.row[item.codeIndex]"></span>
                 </template>
               </el-table-column>
             </template>
@@ -58,21 +73,27 @@
 
 <script>
 import AMap from '../../components/AMap/index.vue'
+import DragThumb from '../../components/AMap/DragThumb.vue'
+import ModelCard from './common/ModelCard.vue'
 import MapList from '@/components/base/BaseMapList/index.vue'
 import MultipleSelector from '../../components/base/MultipleSelector'
 import TimePicker from '../../components/base/TimePicker'
+import mapMixin from '../../mixins/map/index'
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
     AMap,
+    DragThumb,
+    ModelCard,
     MapList,
     MultipleSelector,
     TimePicker,
   },
-  comments: {},
+  mixins: [mapMixin],
   data() {
     return {
+      cityList: [],
       tdList: [],
       thList: [],
       startTime: '',
@@ -104,17 +125,39 @@ export default {
   computed: {
     ...mapGetters(['roles']),
   },
-  created() {
+  async created() {
+    // if (!this.roles.includes('admin')) {
+    //   this.currentRole = 'editorDashboard'
+    // }
     this.initDate()
-    this.selectAllDictionary()
-    if (!this.roles.includes('admin')) {
-      this.currentRole = 'editorDashboard'
-    }
+    await this.selectAllDictionary()
   },
+  mounted() {},
   methods: {
+    async mapLoadComplete() {
+      this.mapBinding()
+      await this.getCityDiscover()
+      this.updateMap()
+    },
+    updateMap() {
+      this.setPolygons(this.tdList, '城市名称', true)
+      this.mapAdd(this.polygons)
+      this.mapFitView()
+    },
+    async getCityDiscover() {
+      const params = {
+        cityNames: this.cityList.join(','),
+        sortString: 'GDP',
+        sortRule: 'desc',
+      }
+      const res = await this.$api.getCityDiscover(params)
+      if (res.code === '200') {
+        this.tdList = res.data
+      }
+    },
     async selectAllDictionary() {
       const params = {
-        codeType: 'districtDiscover',
+        codeType: 'cityDiscover',
       }
       const res = await this.$api.selectAllDictionary(params)
       if (res.code === '200') {
@@ -174,6 +217,9 @@ export default {
 .app-container {
   .head-wrapper {
     height: 50px;
+  }
+  .map-list-container {
+    height: calc(100% - 50px);
   }
   .amap-box {
     height: 300px;

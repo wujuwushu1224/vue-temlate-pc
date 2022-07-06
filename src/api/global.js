@@ -11,4 +11,7 @@ export default {
   selectAllDictionary(params) {
     return requestMethods.postFromData('/tbDictionary/selectAllDictionary', params)
   },
+  getCityDiscover(body) {
+    return requestMethods.get('/cityDiscover/getCityDiscover', body);
+  },
 }

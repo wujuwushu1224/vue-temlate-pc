@@ -6,7 +6,7 @@
 }
 
 .el-upload {
-  input[type="file"] {
+  input[type='file'] {
     display: none !important;
   }
 }
@@ -69,7 +69,7 @@
 // dropdown
 .el-dropdown-menu {
   a {
-    display: block
+    display: block;
   }
 }
 
@@ -96,5 +96,13 @@
 .el-table {
   .el-table__cell {
     padding: 0;
+  }
+  .el-table__header-wrapper th.el-table__cell.is-leaf {
+    background: rgba(231, 243, 255, 1);
+    color: rgba(67, 88, 143, 1);
+  }
+  thead.is-group th.el-table__cell {
+    background: rgba(231, 243, 255, 1);
+    color: rgba(67, 88, 143, 1);
   }
 }

@@ -44,6 +44,7 @@ export default {
           right: {
             width: '500px',
             unfoldHide: false,
+            zIndex: 999
           },
         }
       },

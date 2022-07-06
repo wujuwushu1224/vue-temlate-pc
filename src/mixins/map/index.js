@@ -20,7 +20,7 @@ export default {
       this.$refs.mapChart.amap && this.$refs.mapChart.amap.clearMap()
     },
     initMap() {
-      return this.$refs.mapChart.initChart()
+      return this.$refs.mapChart && this.$refs.mapChart.initChart()
     },
     mapBinding() {
       // 地图加拖拽-缩放-重置
@@ -55,13 +55,13 @@ export default {
     mapSetZoom(num) {
       this.$refs.mapChart.amap && this.$refs.mapChart.amap.setZoom(num)
     },
-    handleClickPolygons(element, type = 'districtId') {
+    handleClickPolygons(element, propVal = 'districtId') {
       if (this.dragItemList.length) {
-        const landNameArray = this.dragItemList.map((item) => item.data[type])
-        if (landNameArray.includes(element[type])) {
+        const landNameArray = this.dragItemList.map((item) => item.data[propVal])
+        if (landNameArray.includes(element[propVal])) {
           this.handleCloseMarker(
-            this.dragItemList[landNameArray.indexOf(element[type])].data,
-            type
+            this.dragItemList[landNameArray.indexOf(element[propVal])].data,
+            propVal
           )
         }
       }
@@ -88,7 +88,7 @@ export default {
       })
       const { x, y, district, color } = element
       const marker = new AMap.Marker({
-        content: `<p class="hoverMarker" style="border:1px solid ${color};border-radius: 5px 5px 5px 0px;">${element[propVal]}</p>`,
+        content: `<p class="map-marker-title" style="border:1px solid ${color};border-radius: 5px 5px 5px 0px;">${element[propVal]}</p>`,
         position: new AMap.LngLat(x, y),
         offset: new AMap.Pixel(0, -10),
       })
@@ -106,36 +106,6 @@ export default {
       this.mapRemove(this.theMarker)
       this.theMarker = {}
     },
-    // 画圆
-    // setCircle(data, color) {
-    //   const circleList = []
-    //   data.map(element => {
-    //     const circle = new AMap.Circle({
-    //       center: [element.x, element.y],
-    //       radius: 1000 * element.buildingCount, // 半径
-    //       strokeColor: `rgba(${element.color},1)`,
-    //       strokeOpacity: 1,
-    //       strokeWeight: 1,
-    //       fillOpacity: 0.68,
-    //       strokeStyle: 'solid',
-    //       strokeDasharray: [10, 10],
-    //       fillColor: `rgba(${element.color},1)`,
-    //       zIndex: 50,
-    //       extData: element
-    //     })
-    //     circle.on('mouseover', () => {
-    //       // this.handleCircleMouseover(circle)
-    //     })
-    //     circle.on('mouseout', () => {
-    //       // this.handleCircleMouseout(circle)
-    //     })
-    //     circleList.push(circle)
-    //   })
-    //   return circleList
-    // },
-    // comDistance(total) { // 计算圆圈大小
-    //   return total ? (total < 50 ? 50 : (total > 100 ? 100 : total)) : 0
-    // },
     setCircle(data) {
       const markers = []
       const distance = 60
@@ -171,13 +141,13 @@ export default {
     handleCircleMouseover(element) {},
     handleCircleMouseout(element) {},
     // 点击标记点
-    handleClickMarker(element, type = 'homeId') {
+    handleClickMarker(element, propVal = 'homeId') {
       if (this.dragItemList.length) {
-        const landNameArray = this.dragItemList.map((item) => item.data[type])
-        if (landNameArray.includes(element[type])) {
+        const landNameArray = this.dragItemList.map((item) => item.data[propVal])
+        if (landNameArray.includes(element[propVal])) {
           this.handleCloseMarker(
-            this.dragItemList[landNameArray.indexOf(element[type])].data,
-            type
+            this.dragItemList[landNameArray.indexOf(element[propVal])].data,
+            propVal
           )
         }
       }
@@ -194,11 +164,11 @@ export default {
         data: element,
       })
     },
-    handleCloseMarker(data, type = 'homeId') {
+    handleCloseMarker(data, propVal = 'homeId') {
       let dragItemList = JSON.parse(JSON.stringify(this.dragItemList))
       this.dragItemList = []
       const dragIndex = dragItemList.findIndex(
-        (res) => res.data[type] === data[type]
+        (res) => res.data[propVal] === data[propVal]
       )
       dragItemList = dragItemList.map((item, index) => {
         item.data.resetRect = this.$refs['drag' + index][0].curRect
@@ -256,10 +226,11 @@ export default {
           }
         })
       this.polygons = polygons
+      return polygons
     },
-    setMarkers(dataList, type = 'homeId') {
+    setMarkers(mapData, propVal = 'homeId') {
       const markers = []
-      dataList.forEach((element, index) => {
+      mapData.forEach((element, index) => {
         if (!element.x || !element.y) {
           console.log('数据没有坐标！！')
           return
@@ -275,7 +246,7 @@ export default {
           // extData: element,
         })
         marker.on('click', () => {
-          this.handleClickMarker(element, type)
+          this.handleClickMarker(element, propVal)
         })
         markers.push(marker)
         element.data
@@ -283,7 +254,7 @@ export default {
       this.markers = markers
       return markers
     },
-    setPointTitle(dataList, type = 'homeId') {
+    setPointTitle(dataList, propVal = 'homeId') {
       const markers = []
       dataList.forEach((element, index) => {
         if (!element.x || !element.y) {
@@ -305,7 +276,7 @@ export default {
         // marker.on('mouseout', () => {
         // })
         marker.on('click', () => {
-          this.handleClickMarker(element, type)
+          this.handleClickMarker(element, propVal)
         })
         markers.push(marker)
       })
